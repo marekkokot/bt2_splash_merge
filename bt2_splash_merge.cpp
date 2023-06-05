@@ -91,6 +91,8 @@ int main(int argc, char** argv) {
         get_anchor_and_rest_of_line(line_bt2, anchor_bt2, rest_bt2);
         get_anchor_and_rest_of_line(line_splash, anchor_splash, rest_splash);
         
+        size_t i = 0;
+
         while(true) {
             if (prev_anch_bt2 != "" && prev_anch_bt2 >= anchor_bt2) {
                 std::cerr << "Error: anchors in bt2 are not sorted\n";
@@ -113,7 +115,7 @@ int main(int argc, char** argv) {
                     return 0;
                 prev_anch_splash = anchor_splash;
                 get_anchor_and_rest_of_line(line_splash, anchor_splash, rest_splash);
-                
+
             } else if (anchor_bt2 < anchor_splash) {
                  if (!std::getline(in_bt2, line_bt2))
                     return 0;
@@ -124,6 +126,10 @@ int main(int argc, char** argv) {
                     return 0;
                 prev_anch_splash = anchor_splash;
                 get_anchor_and_rest_of_line(line_splash, anchor_splash, rest_splash);
+
+                ++i;
+                if (i % 100000 == 0)
+                    std::cerr << i << "\n";
             }
         }
     }   
